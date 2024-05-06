@@ -26,12 +26,15 @@ jobs:
       with:
         go-version: 1.18
 
-    - name: 'Gen New Year Calendar'
+    - name: Run Script
       run: go run autotv.go
       
-    - name: 'Show Diff'
-      run: git add .
-    
+    - name: commit
+      run: |
+        git config --global user.email 1315649364@qq.com
+        git config --global user.name zh
+        git add .
+        git commit -m "update" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
