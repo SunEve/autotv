@@ -26,5 +26,5 @@ jobs:
       
       # Runs a single command using the runners shell
       - name: Run script
-        run: sh auto.sh
+        run: sh autotv.sh
 
