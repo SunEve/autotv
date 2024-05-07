@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 )
 
 func downloadFile(url, filepath string) error {
