@@ -32,7 +32,35 @@ func downloadFile(url, filepath string) error {
 	return nil
 }
 
+func gettime() {
+	// 获取当前时间
+	currentTime := time.Now()
+
+	// 格式化时间为字符串
+	timeString := currentTime.Format("2006-01-02 15:04:05") + "\n"
+
+	// 打开文件以追加文本
+	filePath := "update_time.txt"
+	file, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("打开文件时出错:", err)
+		return
+	}
+	defer file.Close()
+
+	// 将时间字符串写入文件
+	_, err = file.WriteString(timeString)
+	if err != nil {
+		fmt.Println("写入文件时出错:", err)
+		return
+	}
+
+	fmt.Printf("当前时间已追加到文件 %s\n", filePath)
+}
+
 func main() {
+	gettime()
+
 	fileURL := "https://iitzh.com/cn.m3u"
 	filePath := "cn.m3u"
 
@@ -40,4 +68,5 @@ func main() {
 	if err != nil {
 		fmt.Println("下载文件时出错:", err)
 	}
+	
 }
