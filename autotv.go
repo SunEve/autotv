@@ -59,15 +59,45 @@ func gettime() {
 	fmt.Printf("当前时间已追加到文件 %s\n", filePath)
 }
 
+func addxmlpath(addString, filepath string) {
+	// 读取原始文件内容
+	content, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		fmt.Println("读取文件时出错:", err)
+		return
+	}
+
+	lines := strings.Split(string(content), "\n")
+
+	// 在第一行末尾添加指定字符串
+	if len(lines) > 0 {
+		lines[0] += addString
+	}
+
+	// 将修改后的内容写回文件
+	output := []byte(strings.Join(lines, "\n"))
+	err = ioutil.WriteFile(filePath, output, 0644)
+	if err != nil {
+		fmt.Println("写入文件时出错:", err)
+		return
+	}
+
+	fmt.Printf("指定字符串已成功添加到文件 %s 的第一行末尾\n", filePath)
+}
+
 func main() {
 	gettime()
 
-	fileURL := "https://iitzh.com/cn.m3u"
-	filePath := "cn.m3u"
+	fileURL := "https://cdn.jsdelivr.net/gh/BurningC4/Chinese-IPTV@master/TV-IPV4.m3u"
+	filePath := "public/cn.m3u"
 
 	err := downloadFile(fileURL, filePath)
 	if err != nil {
 		fmt.Println("下载文件时出错:", err)
+		return
 	}
 	
+	filePath1 := "public/cn11.m3u"
+	addString := " x-tvg-url=\"https://live.fanmingming.com/e.xml\""
+	addxmlpath(addString, filepath1)
 }
