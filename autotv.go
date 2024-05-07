@@ -61,12 +61,12 @@ func gettime() {
 	fmt.Printf("当前时间已追加到文件 %s\n", filePath)
 }
 
-func addxmlpath(addString, filepath string) {
+func addxmlpath(addString string, filepath string) error {
 	// 读取原始文件内容
 	content, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		fmt.Println("读取文件时出错:", err)
-		return
+		return err
 	}
 
 	lines := strings.Split(string(content), "\n")
@@ -81,10 +81,11 @@ func addxmlpath(addString, filepath string) {
 	err = ioutil.WriteFile(filePath, output, 0644)
 	if err != nil {
 		fmt.Println("写入文件时出错:", err)
-		return
+		return err
 	}
 
 	fmt.Printf("指定字符串已成功添加到文件 %s 的第一行末尾\n", filePath)
+	return nil
 }
 
 func main() {
@@ -99,7 +100,11 @@ func main() {
 		return
 	}
 	
-	//filePath1 := "public/cn11.m3u"
+	// filePath1 := "public/cn11.m3u"
 	addString := " x-tvg-url=\"https://live.fanmingming.com/e.xml\""
-	addxmlpath(addString, filepath)
+	err := addxmlpath(addString, filepath)
+	if err != nil {
+		fmt.Println("修改文件时出错:", err)
+		return
+	}
 }
