@@ -99,7 +99,7 @@ func main() {
 		return
 	}
 	
-	filePath1 := "public/cn11.m3u"
+	//filePath1 := "public/cn11.m3u"
 	addString := " x-tvg-url=\"https://live.fanmingming.com/e.xml\""
-	addxmlpath(addString, filepath1)
+	addxmlpath(addString, filepath)
 }
